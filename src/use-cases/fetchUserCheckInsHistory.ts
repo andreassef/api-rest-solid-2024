@@ -3,6 +3,7 @@ import { CheckInsRepository } from '@/repositories/checkInsRepository'
 
 interface FechtUserCheckInUseCaseRequest {
   userId: string
+  page: number
 }
 
 interface FechtUserCheckInUseCaseResponse {
@@ -14,8 +15,12 @@ class FechtUserCheckInUseCase {
 
   async execute({
     userId,
+    page,
   }: FechtUserCheckInUseCaseRequest): Promise<FechtUserCheckInUseCaseResponse> {
-    const checkIns = await this.checkInsRepository.findManyByUserId(userId)
+    const checkIns = await this.checkInsRepository.findManyByUserId(
+      userId,
+      page,
+    )
 
     return { checkIns }
   }
